@@ -84,7 +84,6 @@ public class ResponseValidator {
 		String item="";
 		for (int i=0;i<element.split("\\.").length;i++) {
 			item = element.split("\\.")[i];
-			System.out.println(item);
 			java.util.regex.Matcher matcher = pattern.matcher(item);
 			if(matcher.matches()) {
 				String found = matcher.group(1);

@@ -1,4 +1,4 @@
-@example
+@example @jsonplaceholder
 Feature: Testing
 
   Background:
@@ -26,17 +26,18 @@ Feature: Testing
     # Options:
       ## JSON, XML, CVS (note CVS check is very bad)
     And the response time is less than 10000 milliseconds
+
   Scenario: [2] Example Scenario
      #Given parameters
      #  |param|here|
      #Given headers
      #    |fake|heading|
-    When the system requests GET "1"
-      # Note that with the base uri and path this will GET http://jsonplaceholder.typicode.com/todos/1
+    When the system requests GET "2"
+      # Note that with the base uri and path this will GET http://jsonplaceholder.typicode.com/todos/2
     Then the response code is 200
     And the response body contains
       |userId|equals|1|int|
-      |title|startsWith|del|text|
+      |title|is|quis ut nam facilis et officia qui|text|
     # Options:
       ## is,equals,hasItem,hasItems,contains,containsAnyOrder,hasSize,isNull,startsWith,endsWith,containsString
       ## All can be nulled by appending ! to start
