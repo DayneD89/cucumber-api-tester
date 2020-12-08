@@ -29,6 +29,7 @@ To build
 
 To run (specific test/scenario)
  - Go to the test or scenario you want to run and rick click -> run test/scenario
+
 To run (header)
  - Run main.java. For example by rick clicking on main function in file -> run main();
  
