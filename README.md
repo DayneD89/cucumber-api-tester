@@ -34,6 +34,25 @@ To run (header)
  
 
 ## Writing feature files
+Feature files take the form of:
+```
+@HEADER
+Feature: FEATURE NAME
+  Background:
+    Given ...
+    Given ...
+  Scenario: SCENARIO NAME
+     Given ...
+     When ...
+     Then ...
+  Scenario: SCENARIO NAME
+     Given ...
+     And ...
+     When ...
+     Then ...
+     And ...
+```
+Using the 'And' keyword will work as if using the last Given/When/Then keyword used.
 ### Header
 This determines what tests will be run when a test case is selected by header. Headers take the form of @Foo to create a Foo header. @~ignore can be used to ignore files even if the headers match. Files can have as many headers as desired, and all scenarios in a file will share all of that files headers. 
 ### Background
@@ -41,13 +60,22 @@ Commands places in the background section will effect all scenarios in that file
 ### Given
 | Command        | Effect     |
 | :------------- | -----------: |
-|  a base uri "<URI>" | Sets the host to <URL>    |
-|  a base path "<PATH>" | Sets the path to <PATH>    |
-|  a base port <PORT> | Sets the host to <PORT>    |
+|  a base uri "\<URI>" | Sets the host to \<URL>    |
+|  a base path "\<PATH>" | Sets the path to \<PATH>    |
+|  a base port \<PORT> | Sets the host to \<PORT>    |
 |  (form/query/path)? parameters | Sets parameters. Takes in a table.    |
 |  headers | Sets headers. Takes in a table.    |
-|  a JSON body "<JSON-STR>" | Sets the body to <JSON-STR> and sets the content-type header   |
-| You Can Also   |  \| |
+|  a JSON body "\<JSON-STR>" | Sets the body to \<JSON-STR> and sets the content-type header   |
+
 ### When
+| Command        | Effect     |
+| :------------- | -----------: |
+|  the system requests \<METHOD> | Gets response using \<METHOD>    |
+|  the system requests \<METHOD> "\<PATH>" | Sets \<PATH> and gets response using \<METHOD>    |
+
+
 ### Then
+| Command        | Effect     |
+| :------------- | -----------: |
+|  the response code is \<CODE> | Verifies response code matches \<CODE>    |
 
