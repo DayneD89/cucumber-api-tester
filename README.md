@@ -104,6 +104,8 @@ This step will pass if it is
 2. $response[$lookup-element] is of type $type
 3. Hamcrest can validate $response[$lookup-element] and $expected-value using $matcher
 
+lookup-element may use [n] to retrieve the nth object from an array, or object.nestedobject to test nestedobject that is isside object
+
 ### Matchers
 Matchers can be made negative by placing '!' as the first character.
 Some Matchers can be made if-ey by placing '~' as the first character.
