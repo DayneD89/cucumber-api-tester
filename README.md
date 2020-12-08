@@ -35,7 +35,7 @@ To run (header)
 
 ## Writing feature files
 Feature files take the form of:
-```
+```gherkin
 @HEADER
 Feature: FEATURE NAME
   Background:
@@ -63,8 +63,8 @@ Commands places in the background section will effect all scenarios in that file
 |  a base uri "\<URI>" | Sets the host to \<URL>    |
 |  a base path "\<PATH>" | Sets the path to \<PATH>    |
 |  a base port \<PORT> | Sets the host to \<PORT>    |
-|  (form/query/path)? parameters | Sets parameters. Takes in a table.    |
-|  headers | Sets headers. Takes in a table.    |
+|  (form/query/path)? parameters | Sets parameters. Takes in a table. *see below*   |
+|  headers | Sets headers. Takes in a table. *see below*   |
 |  a JSON body "\<JSON-STR>" | Sets the body to \<JSON-STR> and sets the content-type header   |
 
 ### When
@@ -78,4 +78,39 @@ Commands places in the background section will effect all scenarios in that file
 | Command        | Effect     |
 | :------------- | -----------: |
 |  the response code is \<CODE> | Verifies response code matches \<CODE>    |
+|  the response body is (not)? a valid \<JSON\CSV\XML> | Verifies response body is a valid \<JSON\CSV\XML>    |
+|  the response time is less than \<TIME> | Verifies response time is under \<TIME> ms   |
+|  the response header contains | Verifies response headers match. Takes in a table *see below*  |
+|  the response body contains  | Verifies response body matches. Takes in a datatable *see below*  |
 
+### (Data)?Tables
+Tables allow you to pass data into the code. For example, to pass in headers you could use;
+```gherkin
+Given headers
+    |Content-Encoding|gzip|
+    |Connection|keep-alive|
+```
+to set the Content-Encoding and Connection request headers.
+
+DataTables allow you to pass even more data into the 'Then the response body contains' step. Here is an example;
+```gherkin
+Then the response body contains
+    |count|equals|11|int|
+    |entries[0].API|equals|Cat Facts|text|
+```
+This takes in 4 items per row, the lookup-element, the matcher, the expected-value and the type. 
+This step will pass if it is
+1. Able to find $lookup-element in the response body.
+2. $response[$lookup-element] is of type $type
+3. Hamcrest can validate $response[$lookup-element] and $expected-value using $matcher
+
+### Matchers
+Matchers can be made negative by placing '!' as the first character.
+Some Matchers can be made if-ey by placing '~' as the first character.
+ - equals,equal,is
+ - hasitem
+ - hasitems (comma delim)
+ - contains
+ - hassize
+ - startswith
+ - endswith
